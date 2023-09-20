@@ -8,23 +8,13 @@ export const authOptions: any = {
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        email: {
-          label: "Email",
-          type: "text",
-          placeholder: "mostafa@admin.com",
-        },
-        password: { label: "Password", type: "password" },
+        email: { type: "text" },
+        password: { type: "password" },
       },
       async authorize(credentials, req) {
-        const res = await fetch(`${url}/api/auth/login`, {
-          method: "POST",
-          body: JSON.stringify(credentials),
-          headers: { "Content-Type": "application/json" },
-        });
+        const { ok, data } = await LoginApi.login(credentials);
 
-        const data = await res.json();
-
-        if (res.ok && data) {
+        if (ok && data) {
           return data;
         }
         throw new Error(data.message);

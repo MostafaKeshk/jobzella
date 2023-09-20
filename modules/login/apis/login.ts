@@ -1,11 +1,15 @@
 import { url } from "@/config/url";
-import axios from "axios";
 
 class LoginApi {
   static async login(body: any) {
-    const response = await axios.post(`${url}/api/auth/login`, body);
+    const res = await fetch(`${url}/api/auth/login`, {
+      method: "POST",
+      body: JSON.stringify(body),
+      headers: { "Content-Type": "application/json" },
+    });
 
-    return response.data;
+    const data = await res.json();
+    return { ok: res.ok, data };
   }
 }
 

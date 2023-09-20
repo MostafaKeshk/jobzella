@@ -23,7 +23,6 @@ const useLoginContainer = () => {
         await signIn("credentials", {
           ...values,
           redirect: false,
-          // callbackUrl: Routes.home,
         }).then((resp: any) => {
           if (!resp.error) {
             router.push(Routes.home);
