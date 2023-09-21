@@ -1,6 +1,6 @@
 import express from "express";
 import authRoutes from "../routes/authRoutes.js";
-import goalRoutes from "../routes/goalRoutes.js";
+import groupRoutes from "../routes/groupRoutes.js";
 import cors from "cors";
 
 import { connectToDB } from "../utils/connectToDB.js";
@@ -23,7 +23,7 @@ app.get('/api', (req, res) => {
 
 
 app.use("/api/auth", authRoutes);
-app.use("/api/goals", authentication, goalRoutes);
+app.use("/api/group", authentication, groupRoutes);
 
 app.listen(PORT, () => {
   console.log("Server listening on port " + PORT);

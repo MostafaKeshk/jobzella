@@ -32,7 +32,7 @@ const LoginForm = () => {
         </p>
       </div>
       <LoadingButton
-        className="w-full bg-primary rounded-lg py-3 text-white mt-16 disabled:bg-lightPrimary hover:bg-primaryBold transition"
+        className="w-full bg-primary rounded-xl py-3 text-white mt-16 disabled:bg-lightPrimary hover:bg-primaryBold transition"
         type="submit"
         loading={loading}
       >

@@ -9,6 +9,9 @@ interface IProps {
   placeholder: string;
   type?: "text" | "password";
   name: string;
+  label?: string;
+  required?: boolean;
+  variant?: "outlined" | "filled";
   Icon?: React.ComponentType<any>;
 }
 
@@ -17,6 +20,9 @@ const Input: React.FC<IProps> = ({
   placeholder,
   type = "text",
   name,
+  label,
+  required = false,
+  variant = "outlined",
   Icon,
 }) => {
   const [visiablity, setVisibility] = useState(false);
@@ -26,8 +32,15 @@ const Input: React.FC<IProps> = ({
 
   return (
     <div className="mb-4">
+      {label && (
+        <label className="mb-2 font-bold block">
+          {label} {required && <span className="text-red-500">*</span>}
+        </label>
+      )}
       <div
-        className={`flex items-center rounded-lg border px-3
+        className={`flex items-center rounded-lg ${
+          variant === "outlined" ? "border px-3" : ""
+        }
        ${formik.errors[name] ? "border-red-500" : "border-lightText"}`}
       >
         {Icon && <Icon className="mr-2 text-lightText text-lg" />}
@@ -36,7 +49,9 @@ const Input: React.FC<IProps> = ({
           id={name}
           name={name}
           placeholder={placeholder}
-          className="form-input w-full focus:outline-none rounded-lg py-3"
+          className={`form-input w-full focus:outline-none rounded-lg py-3 ${
+            variant === "outlined" ? "bg-transparent" : "bg-background px-3"
+          }`}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values[name]}

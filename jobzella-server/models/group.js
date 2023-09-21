@@ -1,17 +1,13 @@
 import mongoose from "mongoose";
 
-const goalSchema = new mongoose.Schema({
-  total: {
-    type: Number,
+const groupSchema = new mongoose.Schema({
+  name: {
+    type: String,
     required: true,
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
-    required: true,
-  },
-  date: {
-    type: Date,
     required: true,
   },
   createdAt: {
@@ -20,6 +16,6 @@ const goalSchema = new mongoose.Schema({
   },
 });
 
-const Goal = mongoose.model("Goal", goalSchema);
+const Goal = mongoose.model("Goal", groupSchema);
 
 export default Goal;
