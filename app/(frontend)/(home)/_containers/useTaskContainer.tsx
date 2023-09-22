@@ -3,11 +3,11 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import Routes from "@/routes";
 import useCallApi from "@/hooks/useCallApi";
-import groupSchema from "../_validations/group";
-import GroupApi from "../_apis/group";
+import taskSchema from "../_validations/task";
+import TaskApi from "../_apis/task";
 import { useSession } from "next-auth/react";
 
-const useGroupContainer = () => {
+const useTaskContainer = (groupId: string) => {
   const router = useRouter();
 
   const { data: session } = useSession();
@@ -16,21 +16,25 @@ const useGroupContainer = () => {
     enableReinitialize: true,
     initialValues: {
       name: "",
+      description: "",
+      status: "",
+      groupId,
     },
     onSubmit: (values) => handleSubmit(values),
-    validationSchema: groupSchema,
+    validationSchema: taskSchema,
   });
 
   const handleSubmit = (values: any) => {
     const { token } = session as any;
 
-    callApi(GroupApi.create(token, values), () => {
-      toast.success("Group created successfully");
-      router.push(Routes.home);
+    callApi(TaskApi.create(token, values), () => {
+      toast.success("Task created successfully");
+      router.push(Routes.getGroup(groupId));
+      router.refresh();
     });
   };
 
   return { formik, loading };
 };
 
-export default useGroupContainer;
+export default useTaskContainer;

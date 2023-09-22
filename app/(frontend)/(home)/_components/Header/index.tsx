@@ -4,14 +4,16 @@ import Image from "next/image";
 import { HiMagnifyingGlass } from "react-icons/hi2";
 import { BiBell } from "react-icons/bi";
 import Profile from "./Profile";
+import NavIcon from "./NavIcon";
 
-const Header = async () => {
+const Header: React.FC = async () => {
   const session = await getServerSession();
 
   return (
-    <nav className="bg-white py-4 shadow-md">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-screen-xl flex justify-between items-center">
+    <nav className="bg-white py-4 shadow-md w-full">
+      <div className="mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
         <div className="flex items-center w-full">
+          <NavIcon />
           <Image
             src="/images/heart.png"
             width={51}
@@ -26,7 +28,7 @@ const Header = async () => {
             </p>
           </div>
         </div>
-        <div className="flex items-center">
+        <div className="md:flex hidden items-center">
           <HiMagnifyingGlass className="mr-6 text-2xl" />
           <BiBell className="mr-6 text-2xl" />
 

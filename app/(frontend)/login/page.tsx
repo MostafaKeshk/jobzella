@@ -1,6 +1,6 @@
-import LoginForm from "@/modules/login/components/LoginForm";
-import Routes from "@/shared/routes";
-import { getServerSession } from "@/shared/utils/getServerSession";
+import LoginForm from "./_components/LoginForm";
+import Routes from "@/routes";
+import { getServerSession } from "@/utils/getServerSession";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 

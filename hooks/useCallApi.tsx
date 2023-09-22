@@ -5,13 +5,15 @@ const useCallApi = () => {
   const [loading, setLoading] = useState(false);
   const callApi = async (
     API: any,
-    onSuccess: (data: any) => void,
+    onSuccess?: (data: any) => void,
     onError?: (error: string) => void
   ) => {
     try {
       setLoading(true);
       const response = await API;
-      onSuccess(response.data);
+      if (onSuccess) {
+        onSuccess(response);
+      }
     } catch (error: any) {
       if (onError) {
         onError(error.message);

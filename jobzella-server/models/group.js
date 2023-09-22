@@ -16,6 +16,6 @@ const groupSchema = new mongoose.Schema({
   },
 });
 
-const Goal = mongoose.model("Goal", groupSchema);
+const Group = mongoose.model("Group", groupSchema);
 
-export default Goal;
+export default Group;

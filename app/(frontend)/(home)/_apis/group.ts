@@ -13,6 +13,7 @@ class GroupApi {
   static async get(token: string) {
     const res = await fetch(`${url}/api/group`, {
       headers: authHeader(token),
+      cache: "no-store",
     });
     if (!res.ok) {
       throw new Error("Failed to fetch data");

@@ -24,9 +24,10 @@ const useGroupContainer = () => {
   const handleSubmit = (values: any) => {
     const { token } = session as any;
 
-    callApi(GroupApi.create(token, values), () => {
+    callApi(GroupApi.create(token, values), (data: any) => {
       toast.success("Group created successfully");
-      router.push(Routes.home);
+      router.push(Routes.getGroup(data.group._id));
+      router.refresh();
     });
   };
 

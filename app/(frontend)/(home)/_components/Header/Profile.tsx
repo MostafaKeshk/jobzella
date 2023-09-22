@@ -20,7 +20,7 @@ const Profile = ({ name, image }: any) => {
           alt={name}
           className="mr-2 rounded-full"
         />
-        <BsChevronDown className="text-3xl font-semibold" />
+        <BsChevronDown className="text-2xl font-semibold" />
       </div>
 
       {isOpen && (

@@ -10,6 +10,10 @@ input:-webkit-autofill:active{
     -webkit-background-clip: text;
 }
 
+body{
+  overflow-x: hidden;
+}
+
 @keyframes circle-loop {
     0% {
       transform: rotate(0deg);
@@ -35,4 +39,11 @@ input:-webkit-autofill:active{
 
 .fade-animation{
   animation: fade 0.2s linear;
+}
+.layout-w-right{
+  width: calc(100vw - 300px);
+@media screen and (max-width: 768px) {
+  width: 100vw;
+}
+
 }

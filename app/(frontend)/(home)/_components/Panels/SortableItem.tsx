@@ -7,10 +7,17 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
 import Item from "./Item";
+import { item } from "../../_types/item.type";
 
-const SortableItem = ({ item }: any) => {
+type IProps = {
+  item: item;
+  panelColor: string;
+  barColor: string;
+};
+
+const SortableItem: React.FC<IProps> = ({ item, panelColor, barColor }) => {
   const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id: item.id });
+    useSortable({ id: item._id });
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -19,7 +26,7 @@ const SortableItem = ({ item }: any) => {
 
   return (
     <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
-      <Item name={item.name} />
+      <Item item={item} panelColor={panelColor} barColor={barColor} />
     </div>
   );
 };
