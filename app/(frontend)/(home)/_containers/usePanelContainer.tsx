@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { DragStartEvent, DragOverEvent } from "@dnd-kit/core";
 import { arrayMove } from "@dnd-kit/sortable";
-import { findContainer } from "../utils/findContainer";
-import { findItem } from "../utils/findItem";
+import { findContainer } from "../_utils/findContainer";
+import { findItem } from "../_utils/findItem";
 
 const usePanelContainer = () => {
   const [items, setItems] = useState<any>({

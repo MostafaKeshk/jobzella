@@ -13,7 +13,7 @@ import { sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 
 import Panel from "./Panel";
 import Item from "./Item";
-import usePanelContainer from "@/modules/home/containers/usePanelContainer";
+import usePanelContainer from "../../_containers/usePanelContainer";
 
 const Panels = () => {
   const { handleDragStart, handleDragOver, handleDragEnd, items, activeItem } =

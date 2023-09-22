@@ -1,5 +1,5 @@
 import { url } from "@/config/url";
-import { authHeader } from "@/shared/utils/authHeader";
+import { authHeader } from "@/utils/authHeader";
 import axios from "axios";
 
 class GroupApi {

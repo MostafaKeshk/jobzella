@@ -3,10 +3,10 @@
 import { TfiEmail } from "react-icons/tfi";
 import { BiLock } from "react-icons/bi";
 
-import useLoginContainer from "../containers/useLoginContainer";
-import Input from "@/shared/components/formik/Input";
-import Checkbox from "@/shared/components/form/Checkbox";
-import LoadingButton from "@/shared/components/LoadingButton";
+import useLoginContainer from "../_containers/useLoginContainer";
+import Input from "@/components/formik/Input";
+import Checkbox from "@/components/form/Checkbox";
+import LoadingButton from "@/components/LoadingButton";
 
 const LoginForm = () => {
   const { formik, rememberMe, handleRememberMe, loading } = useLoginContainer();

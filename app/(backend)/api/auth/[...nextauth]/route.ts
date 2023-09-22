@@ -1,5 +1,4 @@
-import { url } from "@/config/url";
-import LoginApi from "@/modules/login/apis/login";
+import LoginApi from "@/app/(frontend)/login/_apis/login";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 

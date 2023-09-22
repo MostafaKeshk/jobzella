@@ -1,9 +1,9 @@
 "use client";
 
-import Dialog from "@/shared/components/Dialog";
-import useGroupContainer from "../../containers/useGroupContainer";
-import Input from "@/shared/components/formik/Input";
-import LoadingButton from "@/shared/components/LoadingButton";
+import Dialog from "@/components/Dialog";
+import useGroupContainer from "../../_containers/useGroupContainer";
+import Input from "@/components/formik/Input";
+import LoadingButton from "@/components/LoadingButton";
 
 const AddGroupDialog = ({ selectedGroupId }: any) => {
   const onClosePath = !!selectedGroupId ? `/?group=${selectedGroupId}` : "/";

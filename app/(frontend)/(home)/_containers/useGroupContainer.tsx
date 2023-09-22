@@ -1,12 +1,11 @@
 import { useFormik } from "formik";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-import Routes from "@/shared/routes";
-import useCallApi from "@/shared/hooks/useCallApi";
-import groupSchema from "../validations/group";
-import GroupApi from "../apis/group";
+import Routes from "@/routes";
+import useCallApi from "@/hooks/useCallApi";
+import groupSchema from "../_validations/group";
+import GroupApi from "../_apis/group";
 import { useSession } from "next-auth/react";
-import { ISession } from "@/modules/login/types/session.type";
 
 const useGroupContainer = () => {
   const router = useRouter();

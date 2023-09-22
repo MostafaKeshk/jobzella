@@ -1,10 +1,10 @@
-import Panels from "@/modules/home/components/Panels";
-import Routes from "@/shared/routes";
-import { getServerSession } from "@/shared/utils/getServerSession";
+import Panels from "./_components/Panels";
+import Routes from "@/routes";
+import { getServerSession } from "@/utils/getServerSession";
 import { redirect } from "next/navigation";
-import GroupList from "@/modules/home/components/GroupList";
-import AddGroupDialog from "@/modules/home/components/GroupList/AddGroupDialog";
-import Header from "@/modules/home/components/Header";
+import GroupList from "./_components/GroupList";
+import AddGroupDialog from "./_components/GroupList/AddGroupDialog";
+import Header from "./_components/Header";
 
 const Home = async ({ searchParams }: any) => {
   const showCreateGroupModal = searchParams?.createGroupModal;

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { getServerSession } from "@/shared/utils/getServerSession";
-import GroupApi from "../../apis/group";
+import { getServerSession } from "@/utils/getServerSession";
+import GroupApi from "../../_apis/group";
 import GroupItem from "./GroupItem";
 import { IoMdAddCircleOutline } from "react-icons/io";
 

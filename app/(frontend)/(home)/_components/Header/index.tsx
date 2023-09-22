@@ -1,4 +1,4 @@
-import { getServerSession } from "@/shared/utils/getServerSession";
+import { getServerSession } from "@/utils/getServerSession";
 import Image from "next/image";
 
 import { HiMagnifyingGlass } from "react-icons/hi2";

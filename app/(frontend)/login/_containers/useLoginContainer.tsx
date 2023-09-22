@@ -1,10 +1,10 @@
 import { useFormik } from "formik";
-import loginSchema from "../validations/login";
+import loginSchema from "../_validations/login";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { signIn } from "next-auth/react";
-import Routes from "@/shared/routes";
+import Routes from "@/routes";
 
 const useLoginContainer = () => {
   const router = useRouter();
