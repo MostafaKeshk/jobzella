@@ -1,3 +1,4 @@
+import Group from "../models/group.js";
 import Task from "../models/task.js";
 
 export const getTask = async (req, res) => {
@@ -13,6 +14,15 @@ export const getAllTasks = async (req, res) => {
   try {
     const id = req.params.groupId;
 
+    const group = await Group.findById(id);
+
+    console.log(group)
+
+
+    if(!group) {
+      return res.status(500).json({ message: "Group does not exist" });
+    }
+
     const filter ={
       groupId:id
     }
@@ -22,28 +32,6 @@ export const getAllTasks = async (req, res) => {
     res.status(200).json(rows);
   } catch (error) {
     res.status(500).json({ message: "Failed to retrieve tasks" });
-  }
-};
-
-export const updateTask = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const {  name } = req.body;
-
-    const task = await Task.findById(id);
-
-    if (!task) {
-      return res.status(404).json({ message: "Task not found" });
-    }
-
-    task.name = name;
-
-    await task.save();
-
-    res.status(200).json({ message: "Task data updated successfully", task });
-  } catch (error) {
-    console.log({ error });
-    res.status(500).json({ message: "Failed to update task" });
   }
 };
 
@@ -77,22 +65,6 @@ export const createTask = async (req, res) => {
   }
 };
 
-export const deleteTask = async (req, res) => {
-  const { id } = req.params;
-
-  try {
-    const deletedTask = await Task.findByIdAndRemove(id);
-
-    if (!deletedTask) {
-      return res.status(404).json({ error: "Task not found" });
-    }
-
-    return res.json({ message: "Task deleted successfully" });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ error: "Server error" });
-  }
-};
 
 export const sortTasks = async (req, res) => {
   const { activeId,overId ,activeNewPanel} = req.body;

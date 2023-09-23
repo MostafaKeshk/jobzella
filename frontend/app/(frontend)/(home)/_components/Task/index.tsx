@@ -4,7 +4,7 @@ import { BiDotsHorizontalRounded } from "react-icons/bi";
 import { TbClockHour4 } from "react-icons/tb";
 import { PiFolderMinus } from "react-icons/pi";
 import ProgressBar from "@/components/ProgressBar";
-import { assignedUser } from "../../_types/assignedUser";
+import { assignedUser } from "../../_types/assignedUser.type";
 
 type IProps = {
   task: task;

@@ -50,7 +50,7 @@ const TaskDialog = () => {
               value={status.value}
               label={status.label}
               formik={formik}
-              className="mr-8"
+              className="mr-8 mb-2"
             />
           ))}
         </RadioButtonGroup>

@@ -26,12 +26,12 @@ const LoginForm = () => {
           name="remember-me"
           label="Rememeber Me"
         />
-        <p className="text-lightPrimary hover:underline cursor-pointer">
+        <p className="text-lightPrimary hover:underline cursor-pointer my-3">
           Forgot Password?
         </p>
       </div>
       <LoadingButton
-        className="w-full bg-primary rounded-xl py-3 text-white mt-16 disabled:bg-lightPrimary hover:bg-primaryBold transition"
+        className="w-full bg-primary rounded-xl py-3 text-white md:mt-16 mt-4 disabled:bg-lightPrimary hover:bg-primaryBold transition"
         type="submit"
         loading={loading}
       >

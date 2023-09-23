@@ -65,7 +65,7 @@ const Panels: React.FC<IProps> = ({ initTasks }) => {
           <div className="flex min-w-[1000px]">
             <Panel
               id="todo"
-              name="Todo"
+              name="To Do"
               tasks={tasks.todo}
               panelColor="bg-todo"
               barColor="bg-lightTodo"

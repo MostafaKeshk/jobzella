@@ -28,7 +28,7 @@ const Login = async () => {
       />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-screen-xl">
-        <div className="grid grid-cols-12 lg:gap-12 h-screen">
+        <div className="grid grid-cols-12 lg:gap-12 min-h-screen pb-4">
           <div className="col-span-7 hidden lg:flex h-full  flex-col justify-evenly">
             <Image
               src="/images/logo.png"
@@ -49,7 +49,7 @@ const Login = async () => {
               alt="jobzella-logo"
               className="my-5 block lg:hidden"
             />
-            <div className="bg-white rounded-lg px-10 md:pb-20 pt-10 w-full">
+            <div className="bg-white rounded-lg px-10 md:pb-20 pb-5 md:pt-10 pt-5 w-full">
               <h1 className="text-[40px] font-bold relative">
                 Login
                 <span className="absolute left-0 -bottom-2 h-[1px] w-28 bg-black"></span>

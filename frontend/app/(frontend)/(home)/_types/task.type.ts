@@ -1,4 +1,4 @@
-import { assignedUser } from "./assignedUser";
+import { assignedUser } from "./assignedUser.type";
 import { taskStatus } from "./taskStatus.type";
 
 export type task = {

@@ -32,10 +32,12 @@ const TaskMeter: React.FC<IProps> = ({
             width={width}
           />
         </div>
-        <div className="flex items-center mx-2">
-          <AiFillStar className="text-inProgress" />
-          <p className="ml-1 text-inProgress text-sm">Good Job!</p>
-        </div>
+        {completedTasksNumber > 0 && (
+          <div className="flex items-center mx-2">
+            <AiFillStar className="text-inProgress" />
+            <p className="ml-1 text-inProgress text-sm">Good Job!</p>
+          </div>
+        )}
       </div>
     </div>
   );

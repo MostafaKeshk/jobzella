@@ -1,20 +1,20 @@
 import Image from "next/image";
 import { getServerSession } from "@/utils/getServerSession";
-import GroupApi from "../../_apis/group";
+
 import GroupItem from "./GroupItem";
 import AddButton from "@/components/AddButton";
 import NavIcon from "../Header/NavIcon";
 import { HiMagnifyingGlass } from "react-icons/hi2";
 import { BiBell } from "react-icons/bi";
 import Profile from "../Header/Profile";
+import { group } from "../../_types/group.type";
 
 interface IProps {
-  selectedGroupId: string;
+  groups: group[];
 }
 
-const GroupList: React.FC<IProps> = async ({ selectedGroupId }) => {
+const GroupList: React.FC<IProps> = async ({ groups }) => {
   const session = await getServerSession();
-  const groups = !!session ? await GroupApi.get(session.token) : [];
 
   return (
     <>
@@ -45,14 +45,10 @@ const GroupList: React.FC<IProps> = async ({ selectedGroupId }) => {
       ) : (
         <div
           className="overflow-y-auto"
-          style={{ height: "calc(100vh - 250px)" }}
+          style={{ maxHeight: "calc(100vh - 280px)" }}
         >
           {groups.map((group: any) => (
-            <GroupItem
-              key={group._id}
-              group={group}
-              isActive={selectedGroupId === group._id}
-            />
+            <GroupItem key={group._id} group={group} />
           ))}
         </div>
       )}

@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 const useQuerySearch = () => {
@@ -18,6 +18,7 @@ const useQuerySearch = () => {
 
   const handleAddQuery = (name: string, value: string) => {
     router.push(pathname + "?" + createQueryString(name, value));
+    router.refresh();
   };
 
   const handleRemoveQuery = (name: string) => {
@@ -25,6 +26,7 @@ const useQuerySearch = () => {
     params.delete(name);
 
     router.push(pathname + "?" + params.toString());
+    router.refresh();
   };
 
   const handleQuery = ({
@@ -45,6 +47,7 @@ const useQuerySearch = () => {
     });
 
     router.push(pathname + "?" + params.toString());
+    router.refresh();
   };
 
   return { handleAddQuery, handleRemoveQuery, handleQuery };
