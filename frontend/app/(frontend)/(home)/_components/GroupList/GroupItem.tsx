@@ -1,4 +1,6 @@
-import Link from "next/link";
+"use client";
+
+import useQuerySearch from "@/hooks/useQuerySearch";
 
 interface IProps {
   group: {
@@ -9,16 +11,17 @@ interface IProps {
 }
 
 const GroupItem: React.FC<IProps> = ({ group, isActive }) => {
+  const { handleAddQuery } = useQuerySearch();
   return (
-    <Link
-      href={`/?group=${group._id}`}
+    <button
+      onClick={() => handleAddQuery("group", group._id)}
       key={group._id}
       className={`block p-3 rounded text-lg font-semibold  ${
         isActive ? "text-black bg-[#e7ebed]" : "text-lightText"
       }`}
     >
       {group.name}
-    </Link>
+    </button>
   );
 };
 
