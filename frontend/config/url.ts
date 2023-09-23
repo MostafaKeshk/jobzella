@@ -1,1 +1,1 @@
-export const url: string = "http://localhost:5000";
+export const url = process.env.SERVER_URL as string;
