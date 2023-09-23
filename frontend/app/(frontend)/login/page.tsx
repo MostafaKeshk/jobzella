@@ -37,7 +37,7 @@ const Login = async () => {
               alt="jobzella-logo"
             />
             <div className="relative h-96 w-full">
-              <Image src="/images/login.png" layout="fill" alt="login" />
+              <Image src="/images/login.png" fill alt="login" />
             </div>
             <div />
           </div>
