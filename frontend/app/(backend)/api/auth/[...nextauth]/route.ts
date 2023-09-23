@@ -2,26 +2,6 @@ import LoginApi from "@/app/(frontend)/login/_apis/login";
 import CredentialsProvider from "next-auth/providers/credentials";
 import NextAuth, { AuthOptions } from "next-auth";
 import { JWT } from "next-auth/jwt";
-import { AdapterUser } from "next-auth/adapters";
-
-interface IUser extends AdapterUser {
-  message: string;
-  user: {
-    _id: string;
-    name: string;
-    email: string;
-    image: string;
-  };
-  token: string;
-}
-
-interface Token {
-  _id: string;
-  name: string;
-  email: string;
-  image: string;
-  token: string;
-}
 
 export const authOptions: AuthOptions = {
   providers: [

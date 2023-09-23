@@ -19,7 +19,7 @@ const LoginForm = () => {
         type="password"
         Icon={BiLock}
       />
-      <div className="flex justify-between">
+      <div className="flex justify-between flex-wrap">
         <Checkbox
           checked={rememberMe}
           handleCheck={handleRememberMe}
