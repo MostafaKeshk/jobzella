@@ -4,7 +4,12 @@ import { useState } from "react";
 import { BsChevronDown } from "react-icons/bs";
 import { signOut } from "next-auth/react";
 
-const Profile = ({ name, image }: any) => {
+interface IProps {
+  name: string;
+  image: string;
+}
+
+const Profile: React.FC<IProps> = ({ name, image }) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = () => {
     setIsOpen(!isOpen);

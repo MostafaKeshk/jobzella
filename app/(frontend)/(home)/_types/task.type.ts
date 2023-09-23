@@ -1,19 +1,16 @@
-type user = {
-  _id: string;
-  name: string;
-  image: string;
-};
+import { assignedUser } from "./assignedUser";
+import { taskStatus } from "./taskStatus.type";
 
-export type item = {
+export type task = {
   _id: string;
   name: string;
   description: string;
-  status: "todo" | "inProgress" | "done";
+  status: taskStatus;
   groupId: string;
   user: string;
   createdAt: string;
   deadline: string;
   progress: number;
   files: number;
-  assignedUsers: user[];
+  assignedUsers: assignedUser[];
 };

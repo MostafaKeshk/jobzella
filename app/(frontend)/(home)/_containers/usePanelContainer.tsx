@@ -1,34 +1,21 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { DragStartEvent, DragOverEvent } from "@dnd-kit/core";
+import { DragStartEvent } from "@dnd-kit/core";
 import { arrayMove } from "@dnd-kit/sortable";
-import { findContainer } from "../_utils/findContainer";
-import { findItem } from "../_utils/findItem";
-import { item } from "../_types/item.type";
-import { Iitem } from "../_types/Iitem.type";
+import { findTaskList } from "../_utils/findTaskList";
+import { findTask } from "../_utils/findTask";
+import { ITask } from "../_types/ITask.type";
 import TaskApi from "../_apis/task";
 import useCallApi from "@/hooks/useCallApi";
 import { toast } from "react-toastify";
 import { useSession } from "next-auth/react";
 import { taskStatus } from "../_utils/taskStatus";
+import { initTask } from "../_utils/inits";
+import { task } from "../_types/task.type";
 
-const initItem = {
-  _id: "",
-  name: "",
-  description: "",
-  status: "todo",
-  groupId: "",
-  user: "",
-  createdAt: "",
-  deadline: "",
-  progress: 0,
-  files: 0,
-  assignedUsers: [],
-} as item;
-
-const usePanelContainer = (initItems: Iitem) => {
-  const [items, setItems] = useState(initItems);
+const usePanelContainer = (initTasks: ITask) => {
+  const [tasks, setTasks] = useState(initTasks);
   const [activeBarColor, setActiveBarColor] = useState("");
   const [activePanelColor, setActivePanelColor] = useState("");
 
@@ -36,28 +23,28 @@ const usePanelContainer = (initItems: Iitem) => {
   const { data: session } = useSession();
 
   useEffect(() => {
-    setItems(initItems);
-  }, [initItems]);
+    setTasks(initTasks);
+  }, [initTasks]);
 
   const allTasksNumber = useMemo(() => {
-    if (items) {
-      const todoCount = items.todo ? items.todo.length : 0;
-      const inProgressCount = items.inProgress ? items.inProgress.length : 0;
-      const doneCount = items.done ? items.done.length : 0;
+    if (tasks) {
+      const todoCount = tasks.todo ? tasks.todo.length : 0;
+      const inProgressCount = tasks.inProgress ? tasks.inProgress.length : 0;
+      const doneCount = tasks.done ? tasks.done.length : 0;
 
       return todoCount + inProgressCount + doneCount;
     } else {
       return 0;
     }
-  }, [items]);
+  }, [tasks]);
 
-  const [activeItem, setActiveItem] = useState<item>(initItem);
+  const [activeTask, setActiveTask] = useState<task>(initTask);
 
   const handleDragStart = (event: DragStartEvent): void => {
     const { active } = event;
     const { id } = active;
 
-    const item = findItem(items, id);
+    const item = findTask(tasks, id);
     if (item.status === taskStatus.todo) {
       setActiveBarColor("bg-lightTodo");
       setActivePanelColor("bg-todo");
@@ -68,7 +55,7 @@ const usePanelContainer = (initItems: Iitem) => {
       setActiveBarColor("bg-lightDone");
       setActivePanelColor("bg-done");
     }
-    setActiveItem(item);
+    setActiveTask(item);
   };
 
   const handleDragOver = (event: any): void => {
@@ -76,8 +63,8 @@ const usePanelContainer = (initItems: Iitem) => {
     const { id } = active;
     const { id: overId } = over;
 
-    const activeContainer = findContainer(items, id);
-    const overContainer = findContainer(items, overId);
+    const activeContainer = findTaskList(tasks, id);
+    const overContainer = findTaskList(tasks, overId);
 
     if (
       !activeContainer ||
@@ -87,26 +74,25 @@ const usePanelContainer = (initItems: Iitem) => {
       return;
     }
 
-    setItems((prev: any) => {
-      const activeItems = prev[activeContainer];
-      const overItems = prev[overContainer];
+    setTasks((prev: any) => {
+      const activeTasks = prev[activeContainer];
+      const overTasks = prev[overContainer];
 
-      const activeIndex = activeItems.findIndex((item: any) => item._id === id);
-      const overIndex = overItems.findIndex((item: any) => item._id === overId);
+      const activeIndex = activeTasks.findIndex((item: any) => item._id === id);
+      const overIndex = overTasks.findIndex((item: any) => item._id === overId);
 
       let newIndex;
       if (overId in prev) {
-        // We're at the root droppable of a container
-        newIndex = overItems.length + 1;
+        newIndex = overTasks.length + 1;
       } else {
         const isBelowLastItem =
           over &&
-          overIndex === overItems.length - 1 &&
+          overIndex === overTasks.length - 1 &&
           draggingRect?.offsetTop > over.rect.offsetTop + over.rect.height;
 
         const modifier = isBelowLastItem ? 1 : 0;
 
-        newIndex = overIndex >= 0 ? overIndex + modifier : overItems.length + 1;
+        newIndex = overIndex >= 0 ? overIndex + modifier : overTasks.length + 1;
       }
 
       return {
@@ -118,7 +104,7 @@ const usePanelContainer = (initItems: Iitem) => {
         ],
         [overContainer]: [
           ...prev[overContainer].slice(0, newIndex),
-          items[activeContainer as keyof Iitem][activeIndex],
+          tasks[activeContainer as keyof ITask][activeIndex],
           ...prev[overContainer].slice(newIndex, prev[overContainer].length),
         ],
       };
@@ -130,8 +116,8 @@ const usePanelContainer = (initItems: Iitem) => {
     const { id } = active;
     const { id: overId } = over;
 
-    const activeContainer = findContainer(items, id);
-    const overContainer = findContainer(items, overId);
+    const activeContainer = findTaskList(tasks, id);
+    const overContainer = findTaskList(tasks, overId);
 
     if (
       !activeContainer ||
@@ -141,18 +127,18 @@ const usePanelContainer = (initItems: Iitem) => {
       return;
     }
 
-    const activeIndex = items[activeContainer as keyof Iitem].findIndex(
+    const activeIndex = tasks[activeContainer as keyof ITask].findIndex(
       (item: any) => item._id === id
     );
-    const overIndex = items[overContainer as keyof Iitem].findIndex(
+    const overIndex = tasks[overContainer as keyof ITask].findIndex(
       (item: any) => item._id === overId
     );
 
     if (activeIndex !== overIndex) {
-      setItems((items: any) => ({
-        ...items,
+      setTasks((tasks: any) => ({
+        ...tasks,
         [overContainer]: arrayMove(
-          items[overContainer],
+          tasks[overContainer],
           activeIndex,
           overIndex
         ),
@@ -166,7 +152,7 @@ const usePanelContainer = (initItems: Iitem) => {
       TaskApi.sort(token, {
         activeId: id,
         overId,
-        activeNewPanel: overContainer as keyof Iitem,
+        activeNewPanel: overContainer as keyof ITask,
       }),
       () => {
         toast.dismiss();
@@ -175,15 +161,15 @@ const usePanelContainer = (initItems: Iitem) => {
         toast.dismiss();
       }
     );
-    setActiveItem(initItem);
+    setActiveTask(initTask);
   };
 
   return {
     handleDragStart,
     handleDragOver,
     handleDragEnd,
-    items,
-    activeItem,
+    tasks,
+    activeTask,
     allTasksNumber,
     activeBarColor,
     activePanelColor,

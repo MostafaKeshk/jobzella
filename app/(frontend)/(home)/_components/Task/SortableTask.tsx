@@ -6,18 +6,18 @@ import { useSortable } from "@dnd-kit/sortable";
 
 import { CSS } from "@dnd-kit/utilities";
 
-import Item from "./Item";
-import { item } from "../../_types/item.type";
+import Task from ".";
+import { task } from "../../_types/task.type";
 
 type IProps = {
-  item: item;
+  task: task;
   panelColor: string;
   barColor: string;
 };
 
-const SortableItem: React.FC<IProps> = ({ item, panelColor, barColor }) => {
+const SortableTask: React.FC<IProps> = ({ task, panelColor, barColor }) => {
   const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id: item._id });
+    useSortable({ id: task._id });
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -26,9 +26,9 @@ const SortableItem: React.FC<IProps> = ({ item, panelColor, barColor }) => {
 
   return (
     <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
-      <Item item={item} panelColor={panelColor} barColor={barColor} />
+      <Task task={task} panelColor={panelColor} barColor={barColor} />
     </div>
   );
 };
 
-export default SortableItem;
+export default SortableTask;

@@ -1,34 +1,35 @@
 import Image from "next/image";
-import { item } from "../../_types/item.type";
+import { task } from "../../_types/task.type";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 import { TbClockHour4 } from "react-icons/tb";
 import { PiFolderMinus } from "react-icons/pi";
 import ProgressBar from "@/components/ProgressBar";
+import { assignedUser } from "../../_types/assignedUser";
 
 type IProps = {
-  item: item;
+  task: task;
   panelColor: string;
   barColor: string;
 };
 
-const Item: React.FC<IProps> = ({ item, panelColor, barColor }) => {
+const Task: React.FC<IProps> = ({ task, panelColor, barColor }) => {
   return (
-    <div className="bg-[#f9f9f9] rounded-lg shadow-lg my-2">
+    <div className="bg-[#f9f9f9] rounded-lg my-2">
       <div className="p-4">
         <div className="flex justify-between items-center">
-          <h2 className="text-xl font-semibold">{item.name}</h2>
+          <h2 className="text-xl font-semibold">{task.name}</h2>
           <BiDotsHorizontalRounded className="text-2xl" />
         </div>
-        <p className="text-gray-600">{item.description}</p>
+        <p className="text-gray-600">{task.description}</p>
         <div className="bg-[#D9EEF3] p-1 inline-flex items-center rounded my-3">
           <TbClockHour4 className="text-[#5AC3DD] mr-1" />
           <span className="text-[#5AC3DD] text-[12px] font-semibold">
-            {item.deadline}
+            {task.deadline}
           </span>
         </div>
         <div className="flex justify-between items-center">
           <div className="flex items-center mb-3">
-            {item.assignedUsers.map((user: any, index: number) => (
+            {task.assignedUsers.map((user: assignedUser, index: number) => (
               <Image
                 key={user._id}
                 src={user.image}
@@ -38,21 +39,21 @@ const Item: React.FC<IProps> = ({ item, panelColor, barColor }) => {
                 className={`border-2 border-white rounded-full ${
                   index > 0 && "-ml-2"
                 }`}
-                style={{ zIndex: `${item.assignedUsers.length - index}` }}
+                style={{ zIndex: `${task.assignedUsers.length - index}` }}
               />
             ))}
           </div>
           <div className="flex items-center ">
             <PiFolderMinus className="text-[#787486] text-lg mr-1" />
             <span className="text-[#787486] text-[12px] font-semibold">
-              {item.files} files
+              {task.files} files
             </span>
           </div>
         </div>
         <ProgressBar
           filledColor={panelColor}
           barColor={barColor}
-          width={`${item.progress}%`}
+          width={`${task.progress}%`}
           height="h-2"
         />
       </div>
@@ -60,4 +61,4 @@ const Item: React.FC<IProps> = ({ item, panelColor, barColor }) => {
   );
 };
 
-export default Item;
+export default Task;

@@ -3,7 +3,7 @@ import { authHeader } from "@/utils/authHeader";
 import axios from "axios";
 
 class GroupApi {
-  static async create(token: string, body: any) {
+  static async create(token: string, body: { name: string }) {
     const res = await axios.post(`${url}/api/group`, body, {
       headers: authHeader(token),
     });

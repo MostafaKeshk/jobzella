@@ -1,21 +1,24 @@
+"use client";
+
+import useCreateQuerySearch from "@/hooks/useQuerySearch";
 import { IoMdAddCircleOutline } from "react-icons/io";
-import Link from "next/link";
 
 type IProps = {
   text: string;
-  modalPath: string;
+  queryKey: string;
   className?: string;
 };
 
-const AddButton: React.FC<IProps> = ({ text, modalPath, className }) => {
+const AddButton: React.FC<IProps> = ({ text, queryKey, className }) => {
+  const { handleAddQuery } = useCreateQuerySearch();
   return (
-    <Link
+    <button
       className={`flex justify-center items-center bg-primary rounded-xl py-3 text-white  disabled:bg-lightPrimary hover:bg-primaryBold transition ${className}`}
-      href={modalPath}
+      onClick={() => handleAddQuery(queryKey, "true")}
     >
       <IoMdAddCircleOutline className="mr-1 text-xl" />
       {text}
-    </Link>
+    </button>
   );
 };
 

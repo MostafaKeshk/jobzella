@@ -1,6 +1,7 @@
 import { url } from "@/config/url";
 import { authHeader } from "@/utils/authHeader";
 import axios from "axios";
+import { taskStatus } from "../_types/taskStatus.type";
 
 class TaskApi {
   static async create(token: string, body: any) {
@@ -29,7 +30,7 @@ class TaskApi {
     body: {
       activeId: string;
       overId: string;
-      activeNewPanel: "todo" | "inProgress" | "done";
+      activeNewPanel: taskStatus;
     }
   ) {
     const res = await axios.put(`${url}/api/task/sort-tasks`, body, {

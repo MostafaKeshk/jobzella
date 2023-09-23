@@ -1,7 +1,7 @@
 interface User {
   name: string;
   email: string;
-  image?: string | undefined;
+  image: string;
   id: string;
 }
 

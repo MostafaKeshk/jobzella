@@ -8,11 +8,17 @@ import TextArea from "@/components/formik/TextArea";
 import RadioButton from "@/components/formik/RadioButton";
 import { taskStatusList } from "../../_utils/taskStatus";
 import RadioButtonGroup from "@/components/formik/RadioButton/Group";
+import useCreateQuerySearch from "@/hooks/useQuerySearch";
 
-const TaskDialog = ({ selectedGroupId }: any) => {
-  const { formik, loading } = useTaskContainer(selectedGroupId);
+const TaskDialog = () => {
+  const { formik, loading } = useTaskContainer();
+  const { handleRemoveQuery } = useCreateQuerySearch();
+
   return (
-    <Dialog title="Add task" onClosePath={`/?group=${selectedGroupId}`}>
+    <Dialog
+      title="Add task"
+      handleClose={() => handleRemoveQuery("createTaskModal")}
+    >
       <form onSubmit={formik.handleSubmit} className="my-3">
         <Input
           formik={formik}

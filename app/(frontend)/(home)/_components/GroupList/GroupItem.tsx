@@ -1,6 +1,14 @@
 import Link from "next/link";
 
-const GroupItem = ({ group, isActive }: any) => {
+interface IProps {
+  group: {
+    _id: string;
+    name: string;
+  };
+  isActive: boolean;
+}
+
+const GroupItem: React.FC<IProps> = ({ group, isActive }) => {
   return (
     <Link
       href={`/?group=${group._id}`}

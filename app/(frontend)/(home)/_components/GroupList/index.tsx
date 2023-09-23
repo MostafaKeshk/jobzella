@@ -7,13 +7,14 @@ import NavIcon from "../Header/NavIcon";
 import { HiMagnifyingGlass } from "react-icons/hi2";
 import { BiBell } from "react-icons/bi";
 import Profile from "../Header/Profile";
-const GroupList = async ({ selectedGroupId }: any) => {
+
+interface IProps {
+  selectedGroupId: string;
+}
+
+const GroupList: React.FC<IProps> = async ({ selectedGroupId }) => {
   const session = await getServerSession();
   const groups = !!session ? await GroupApi.get(session.token) : [];
-
-  const modalPath = !!selectedGroupId
-    ? `/?group=${selectedGroupId}&createGroupModal=true`
-    : "/?createGroupModal=true";
 
   return (
     <>
@@ -33,24 +34,31 @@ const GroupList = async ({ selectedGroupId }: any) => {
           <HiMagnifyingGlass className="mr-6 text-2xl" />
           <BiBell className="mr-6 text-2xl" />
         </div>
-        <Profile image={session?.user?.image} name={session?.user.name} />
+        {session && session.user && (
+          <Profile image={session?.user?.image} name={session?.user.name} />
+        )}
       </div>
 
       <p className="text-[14px] font-semibold text-lightText mb-2">GROUPS</p>
       {!groups.length ? (
-        <p>no groups</p>
+        <p className="text-center text-primary font-bold py-4">No groups</p>
       ) : (
-        groups.map((group: any) => (
-          <GroupItem
-            key={group._id}
-            group={group}
-            isActive={selectedGroupId === group._id}
-          />
-        ))
+        <div
+          className="overflow-y-auto"
+          style={{ height: "calc(100vh - 250px)" }}
+        >
+          {groups.map((group: any) => (
+            <GroupItem
+              key={group._id}
+              group={group}
+              isActive={selectedGroupId === group._id}
+            />
+          ))}
+        </div>
       )}
       <AddButton
         text="Add Group"
-        modalPath={modalPath}
+        queryKey="createGroupModal"
         className="mt-4 w-full"
       />
     </>

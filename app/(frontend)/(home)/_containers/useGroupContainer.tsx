@@ -1,14 +1,13 @@
 import { useFormik } from "formik";
-import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-import Routes from "@/routes";
 import useCallApi from "@/hooks/useCallApi";
 import groupSchema from "../_validations/group";
 import GroupApi from "../_apis/group";
 import { useSession } from "next-auth/react";
+import useQuerySearch from "@/hooks/useQuerySearch";
 
 const useGroupContainer = () => {
-  const router = useRouter();
+  const { handleQuery } = useQuerySearch();
 
   const { data: session } = useSession();
   const { callApi, loading } = useCallApi();
@@ -26,8 +25,10 @@ const useGroupContainer = () => {
 
     callApi(GroupApi.create(token, values), (data: any) => {
       toast.success("Group created successfully");
-      router.push(Routes.getGroup(data.group._id));
-      router.refresh();
+      handleQuery({
+        add: [{ name: "group", value: data.group._id }],
+        remove: ["createGroupModal", "group"],
+      });
     });
   };
 

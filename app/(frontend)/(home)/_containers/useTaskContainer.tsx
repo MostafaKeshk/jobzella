@@ -1,15 +1,17 @@
 import { useFormik } from "formik";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "react-toastify";
-import Routes from "@/routes";
 import useCallApi from "@/hooks/useCallApi";
 import taskSchema from "../_validations/task";
 import TaskApi from "../_apis/task";
 import { useSession } from "next-auth/react";
+import useCreateQuerySearch from "@/hooks/useQuerySearch";
 
-const useTaskContainer = (groupId: string) => {
+const useTaskContainer = () => {
+  const searchParams = useSearchParams();
+  const groupId = searchParams.get("group");
+  const { handleRemoveQuery } = useCreateQuerySearch();
   const router = useRouter();
-
   const { data: session } = useSession();
   const { callApi, loading } = useCallApi();
   const formik = useFormik({
@@ -29,7 +31,7 @@ const useTaskContainer = (groupId: string) => {
 
     callApi(TaskApi.create(token, values), () => {
       toast.success("Task created successfully");
-      router.push(Routes.getGroup(groupId));
+      handleRemoveQuery("createTaskModal");
       router.refresh();
     });
   };

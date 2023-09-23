@@ -1,8 +1,29 @@
 import LoginApi from "@/app/(frontend)/login/_apis/login";
-import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import NextAuth, { AuthOptions } from "next-auth";
+import { JWT } from "next-auth/jwt";
+import { AdapterUser } from "next-auth/adapters";
 
-export const authOptions: any = {
+interface IUser extends AdapterUser {
+  message: string;
+  user: {
+    _id: string;
+    name: string;
+    email: string;
+    image: string;
+  };
+  token: string;
+}
+
+interface Token {
+  _id: string;
+  name: string;
+  email: string;
+  image: string;
+  token: string;
+}
+
+export const authOptions: AuthOptions = {
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -24,9 +45,9 @@ export const authOptions: any = {
     signIn: "/login",
   },
   callbacks: {
-    async jwt({ token, user }: any) {
+    async jwt({ token, user }: { token: JWT; user?: any }): Promise<JWT> {
       if (user) {
-        token.id = user.user._id;
+        token._id = user.user._id;
         token.token = user.token;
         token.name = user.user.name;
         token.email = user.user.email;
@@ -35,13 +56,13 @@ export const authOptions: any = {
 
       return token;
     },
-    async session({ session, token }: any) {
+    async session({ session, token }: { session: any; token: any }) {
       const body = {
         ...session,
         token: token.token,
         user: {
           ...session.user,
-          id: token.id,
+          _id: token._id,
           image: token.image,
         },
       };

@@ -12,32 +12,27 @@ import {
 import { sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 
 import Panel from "./Panel";
-import Item from "./Item";
+import Task from "../Task";
 import usePanelContainer from "../../_containers/usePanelContainer";
-import TaskMeter from "./TaskMeter";
+import TaskMeter from "../Task/TaskMeter";
 import AddButton from "@/components/AddButton";
-import { Iitem } from "../../_types/Iitem.type";
+import { ITask } from "../../_types/ITask.type";
 
 type IProps = {
-  selectedGroupId: string;
-  initItems: Iitem;
+  initTasks: ITask;
 };
 
-const Panels: React.FC<IProps> = ({ selectedGroupId, initItems }) => {
+const Panels: React.FC<IProps> = ({ initTasks }) => {
   const {
     handleDragStart,
     handleDragOver,
     handleDragEnd,
-    items,
-    activeItem,
+    tasks,
+    activeTask,
     allTasksNumber,
     activeBarColor,
     activePanelColor,
-  } = usePanelContainer(initItems);
-
-  const modalPath = !!selectedGroupId
-    ? `/?group=${selectedGroupId}&createTaskModal=true`
-    : "/?createTaskModal=true";
+  } = usePanelContainer(initTasks);
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -50,10 +45,14 @@ const Panels: React.FC<IProps> = ({ selectedGroupId, initItems }) => {
     <>
       <div className="flex justify-between items-center my-6 flex-wrap">
         <TaskMeter
-          completedTasksNumber={items.done.length}
+          completedTasksNumber={tasks.done.length}
           allTasksNumber={allTasksNumber}
         />
-        <AddButton text="Add Task" modalPath={modalPath} className="w-48" />
+        <AddButton
+          text="Add Task"
+          queryKey="createTaskModal"
+          className="w-48"
+        />
       </div>
       <DndContext
         sensors={sensors}
@@ -67,21 +66,21 @@ const Panels: React.FC<IProps> = ({ selectedGroupId, initItems }) => {
             <Panel
               id="todo"
               name="Todo"
-              items={items.todo}
+              tasks={tasks.todo}
               panelColor="bg-todo"
               barColor="bg-lightTodo"
             />
             <Panel
               id="inProgress"
               name="In Progress"
-              items={items.inProgress}
+              tasks={tasks.inProgress}
               panelColor="bg-inProgress"
               barColor="bg-lightInProgress"
             />
             <Panel
               id="done"
               name="Done"
-              items={items.done}
+              tasks={tasks.done}
               panelColor="bg-done"
               barColor="bg-lightDone"
             />
@@ -89,9 +88,9 @@ const Panels: React.FC<IProps> = ({ selectedGroupId, initItems }) => {
         </div>
 
         <DragOverlay>
-          {activeItem._id ? (
-            <Item
-              item={activeItem}
+          {activeTask._id ? (
+            <Task
+              task={activeTask}
               panelColor={activePanelColor}
               barColor={activeBarColor}
             />

@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 
 const Login = async () => {
   const session = await getServerSession();
-  if (session?.token) {
+  if (session && session.token) {
     redirect(Routes.home);
   }
 
@@ -49,7 +49,7 @@ const Login = async () => {
               alt="jobzella-logo"
               className="my-5 block lg:hidden"
             />
-            <div className="bg-white rounded-lg px-10 pb-20 pt-10 w-full">
+            <div className="bg-white rounded-lg px-10 md:pb-20 pt-10 w-full">
               <h1 className="text-[40px] font-bold relative">
                 Login
                 <span className="absolute left-0 -bottom-2 h-[1px] w-28 bg-black"></span>

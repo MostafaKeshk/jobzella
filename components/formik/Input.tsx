@@ -50,7 +50,7 @@ const Input: React.FC<IProps> = ({
           name={name}
           placeholder={placeholder}
           className={`form-input w-full focus:outline-none rounded-lg py-3 ${
-            variant === "outlined" ? "bg-transparent" : "bg-background px-3"
+            variant === "outlined" ? "bg-transparent" : "bg-[#F5F6F6] px-3"
           }`}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}

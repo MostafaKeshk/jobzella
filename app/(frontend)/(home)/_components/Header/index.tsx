@@ -22,7 +22,9 @@ const Header: React.FC = async () => {
             className="mr-2"
           />
           <div>
-            <h1 className="text-2xl font-bold">Hello, {session?.user.name}</h1>
+            {session && session.user && (
+              <h1 className="text-2xl font-bold">Hello, {session.user.name}</h1>
+            )}
             <p className="text-[14px] my-1 text-lightText">
               Let’s start your tasks NOW!
             </p>
@@ -31,8 +33,9 @@ const Header: React.FC = async () => {
         <div className="md:flex hidden items-center">
           <HiMagnifyingGlass className="mr-6 text-2xl" />
           <BiBell className="mr-6 text-2xl" />
-
-          <Profile image={session?.user?.image} name={session?.user.name} />
+          {session && session.user && (
+            <Profile image={session.user.image} name={session.user.name} />
+          )}
         </div>
       </div>
     </nav>

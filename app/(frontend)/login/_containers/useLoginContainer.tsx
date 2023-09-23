@@ -14,8 +14,8 @@ const useLoginContainer = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      email: "",
-      password: "",
+      email: "mostafa@gmail.com",
+      password: "123456",
     },
     onSubmit: async (values) => {
       try {
